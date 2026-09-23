@@ -1,0 +1,15 @@
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        # O(n log n)
+        intervals.sort(key=lambda x: x[0]) 
+        merged = [intervals[0]]
+        
+        for start, end in intervals[1:]:
+            lastEnd = merged[-1][1]
+
+            if start <= lastEnd: # overlapping
+                merged[-1][1] = max(lastEnd, end)
+            else:
+                merged.append([start, end])
+        
+        return merged
